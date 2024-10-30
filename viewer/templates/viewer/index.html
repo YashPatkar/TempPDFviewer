@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF viewer</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    
+        h1, h2 {
+            color: #343a40;
+        }
+    
+        .success-message {
+            text-align: center;
+            background-color: #28a745;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    
+        form {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+            margin-bottom: 20px;
+            margin-left: 10px;
+        }
+    
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #495057;
+        }
+    
+        input[type="file"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+    
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+    
+        button:hover {
+            background-color: #0056b3;
+        }
+    
+        hr {
+            border: 0;
+            height: 1px;
+            background: #ced4da;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    
+    
+    {% if option %}
+    <div class="success-message">
+        <h1>Successfully created Room.</h1>
+        <center>
+            <h2>Room ID: {{ code }}</h2>
+        </center>
+    </div>
+    {% else %}
+        <form action="{% url 'index' %}" method="post" enctype="multipart/form-data" class="form-container">
+            {% csrf_token %}
+            <label for="file">Select a PDF file:</label>
+            <input type="file" id="file" name="file" accept="application/pdf" required>
+            <button type="submit">Create Room</button>
+        </form>
+        &nbsp;
+        OR
+
+        <form action="" method="post" class="form-container">
+            {% csrf_token %}
+            <label for="code">Enter Room ID:</label>
+            <input type="text" id="code" name="code" required>
+            <button type="submit">Join Room</button>
+        </form>
+    {% endif %}
+
+</body>
+</html>
